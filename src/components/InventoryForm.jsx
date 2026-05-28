@@ -12,6 +12,7 @@ const emptyForm = {
   unit: "portions",
   approximateWeight: "",
   storedDate: getTodayIsoDate(),
+  useByDate: "",
   priority: "normal",
   note: "",
 };
@@ -20,7 +21,7 @@ export default function InventoryForm({ editingItem, onCancelEdit, onSubmit }) {
   const [formValues, setFormValues] = useState(emptyForm);
 
   useEffect(() => {
-    setFormValues(editingItem || emptyForm);
+    setFormValues(editingItem ? { ...emptyForm, ...editingItem, useByDate: editingItem.useByDate || "" } : emptyForm);
   }, [editingItem]);
 
   function updateField(field, value) {
@@ -122,6 +123,13 @@ export default function InventoryForm({ editingItem, onCancelEdit, onSubmit }) {
           type="date"
         />
       </div>
+
+      <TextField
+        label="Consumir antes de"
+        value={formValues.useByDate}
+        onChange={(value) => updateField("useByDate", value)}
+        type="date"
+      />
 
       <SelectField
         label="Prioridad"

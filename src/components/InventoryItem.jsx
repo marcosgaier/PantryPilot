@@ -51,6 +51,9 @@ export default function InventoryItem({ item, onDelete, onEdit }) {
       <div className="mt-3 flex flex-wrap gap-2 text-sm">
         <Badge>{`${item.quantity} ${getLabel(units, item.unit)}`}</Badge>
         {item.storedDate ? <Badge>{formatDisplayDate(item.storedDate)}</Badge> : null}
+        {item.useByDate ? (
+          <Badge>{`Consumir antes de: ${formatDisplayDate(item.useByDate)}`}</Badge>
+        ) : null}
         {item.approximateWeight ? <Badge>{`Peso ${item.approximateWeight}`}</Badge> : null}
         <Badge tone={isUrgent ? "urgent" : isUseSoon ? "soon" : "normal"}>{priorityLabel}</Badge>
       </div>
